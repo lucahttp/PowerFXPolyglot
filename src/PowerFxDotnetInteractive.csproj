@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<IncludeBuildOutput>true</IncludeBuildOutput>
+		<IsPackable>true</IsPackable>
+		<PackageDescription>This is a Kernel extension for Polyglot Notebooks that helps you to run Power Fx code</PackageDescription>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>$([System.DateTime]::Now.ToString('yyyy.MM.dd')).9</Version>
+		<Authors>Natraj Yegnaraman</Authors>
+		<Product>PowerFx.NET.Interactive</Product>
+		<PackageId>PowerFx.NET.Interactive</PackageId>
+		<Description>This is a Kernel extension for Polyglot Notebooks that helps you to run Power Fx code</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReleaseNotes>1. Update marshalling logic to infer types. Collection sharing from C# to Power Fx now works as a result.
+		2. Update sharing logic when variable is shared from Power Fx to other kernels</PackageReleaseNotes>
+		<PackageProjectUrl>https://github.com/rajyraman/Power-Fx-.NET-Interactive</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rajyraman/Power-Fx-.NET-Interactive</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>powerfx,.netinteractivenotebook,powerapps,polyglotnotebooks</PackageTags>
+		<Title>Power Fx Kernel for Polyglot Notebooks</Title>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="bin\**" />
+		<EmbeddedResource Remove="bin\**" />
+		<None Remove="bin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="PowerFxExtension.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="README.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Identity" Version="1.11.2" />
+        <!-- warning NU1902: Package 'Azure.Identity' 1.11.2 has a known moderate severity vulnerability https://www.nuget.org/packages/Azure.Identity/ -->
+		<PackageReference Include="Dumpify" Version="0.6.6" />
+		<PackageReference Include="Microsoft.DotNet.Interactive" Version="1.0.0-beta.24229.4" />
+		<PackageReference Include="Microsoft.DotNet.Interactive.CSharp" Version="1.0.0-beta.24229.4" />
+		<PackageReference Include="Microsoft.PowerFx.Dataverse.Eval" Version="1.2.0-build.20231002-1005" />
+        <!-- https://www.nuget.org/packages/Microsoft.PowerFx.Dataverse.Eval/ -->
+		<PackageReference Include="Microsoft.PowerFx.Repl" Version="1.1.0" />
+        <!-- https://www.nuget.org/packages/Microsoft.PowerFx.Repl -->
+		<PackageReference Include="Microsoft.PowerPlatform.Dataverse.Client" Version="1.1.22" />
+		<PackageReference Include="System.Collections" Version="4.3.0" />
+		<PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
+		<PackageReference Include="Microsoft.PowerFx.Core" Version="1.2.0" />
+        <!-- https://www.nuget.org/packages/Microsoft.PowerFx.Core/ -->
+		<PackageReference Include="Microsoft.PowerFx.Json" Version="1.2.0" />
+        <!-- https://www.nuget.org/packages/Microsoft.PowerFx.Json/ -->
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(OutputPath)/PowerFXDotNetInteractive.dll" Pack="true" PackagePath="interactive-extensions/dotnet" />
+		<None Include="..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
